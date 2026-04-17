@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Inventory System</title>
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- Sidebar will be injected here -->
+    <div class="main-content">
+        <h1 style="margin-bottom: 2rem;">Dashboard</h1>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Products</h3>
+                <p id="totalProducts">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Low Stock Items</h3>
+                <p id="lowStockItems" style="color: var(--warning);">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Customers</h3>
+                <p id="totalCustomers">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Receivables</h3>
+                <p id="totalReceivables" style="color: var(--secondary);">₹0</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem;">
+            <h2>Recent Bills</h2>
+            <table id="recentBillsTable">
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Amount</th>
+                        <th>Paid</th>
+                        <th>Due</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Bills injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="../../js/utils.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

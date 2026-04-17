@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments - Inventory System</title>
+    <link rel="stylesheet" href="../../css/global.css">
+</head>
+<body>
+    <div class="main-content">
+        <h1 style="margin-bottom: 2rem;">Record Payment / Advance</h1>
+        
+        <div class="auth-card" style="margin: 0 auto; margin-top: 2rem; max-width: 500px;">
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label>Select Customer</label>
+                    <select id="customerId" required onchange="updateCustomerDue()">
+                        <option value="">Select a customer...</option>
+                    </select>
+                    <small id="currentDueText" style="display: block; margin-top: 0.5rem; color: var(--text-muted);"></small>
+                </div>
+                
+                <div class="form-group">
+                    <label>Amount (₹)</label>
+                    <input type="number" id="amount" min="1" step="0.01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select id="paymentMethod" required>
+                        <option value="Cash">Cash</option>
+                        <option value="UPI">UPI</option>
+                        <option value="Card">Card</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Note (Optional)</label>
+                    <input type="text" id="note" placeholder="E.g., Cleared past dues">
+                </div>
+                
+                <button type="submit" class="btn mt-4" id="submitBtn">Record Payment</button>
+            </form>
+        </div>
+    </div>
+    <script src="../../js/utils.js"></script>
+    <script src="payments.js"></script>
+</body>
+</html>
