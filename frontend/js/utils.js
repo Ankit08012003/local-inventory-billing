@@ -33,13 +33,16 @@ const apiFetch = async (endpoint, options = {}) => {
             headers
         });
         
-        if (response.status === 401) {
-            localStorage.removeItem('token');
-            window.location.href = '/pages/auth/login.html';
-            return null;
-        }
-
         const data = await response.json();
+        
+        if (response.status === 401) {
+            const isAuthPage = window.location.pathname.includes('/auth/');
+            if (!isAuthPage) {
+                localStorage.removeItem('token');
+                window.location.href = '/pages/auth/login.html';
+                return null;
+            }
+        }
         
         if (!response.ok) {
             throw new Error(data.message || 'Something went wrong');

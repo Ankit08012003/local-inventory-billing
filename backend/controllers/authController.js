@@ -82,4 +82,50 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { signup, verifyOTP, login };
+const forgotPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await Auth.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: 'username not exist' });
+        }
+
+        const otp = generateOTP();
+        const otpExpiry = new Date(Date.now() + 10 * 60000); // 10 mins
+
+        user.otp = otp;
+        user.otpExpiry = otpExpiry;
+        await user.save();
+
+        await sendEmailOTP(email, otp);
+
+        res.json({ message: 'OTP sent to your email.' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+const resetPassword = async (req, res) => {
+    try {
+        const { email, otp, newPassword } = req.body;
+        const user = await Auth.findOne({ email });
+
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        
+        if (user.otp !== otp || user.otpExpiry < new Date()) {
+            return res.status(400).json({ message: 'Invalid or expired OTP' });
+        }
+
+        user.password = newPassword;
+        user.otp = undefined;
+        user.otpExpiry = undefined;
+        await user.save();
+
+        res.json({ message: 'Password reset successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+module.exports = { signup, verifyOTP, login, forgotPassword, resetPassword };
